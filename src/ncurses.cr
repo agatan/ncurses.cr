@@ -3,6 +3,8 @@ require "./ncurses/*"
 module NCurses
   extend self
 
+  alias KeyCode = LibNCurses::KeyCode
+
   @@stdscr : Window | Nil = nil
 
   def open
@@ -46,13 +48,7 @@ module NCurses
     stdscr.getch
   end
 
-  def getkey
-    stdscr.getkey
-  end
-
 end
-
-keys = Array(NCurses::Key).new
 
 NCurses.open do
   NCurses.cbreak
@@ -60,12 +56,10 @@ NCurses.open do
   NCurses.keypad(true)
   NCurses.notimeout(true)
   loop do
-    x = NCurses.getkey
-    if x.key == NCurses::KeyCode::EOF || x.key == NCurses::KeyCode::ESC # Ctrl-D
+    x = NCurses.getch
+    if x == 0x04 # CTRL_D
       break
     end
-    keys << x
   end
 end
 
-pp keys

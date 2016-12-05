@@ -38,20 +38,5 @@ module NCurses
     def getch
       check_error(LibNCurses.wgetch(@win), "wgetch")
     end
-
-    def getkey
-      key = check_error(LibNCurses.wgetch(@win), "wgetch")
-      if key > 0xff
-        Key.new(key)
-      else
-        nbytes = NCurses.utf8_bytes(key)
-        bytes = Slice(UInt8).new(nbytes)
-        bytes[0] = key.to_u8
-        (1...nbytes).each do |i|
-          bytes[i] = check_error(LibNCurses.wgetch(@win), "wgetch").to_u8
-        end
-        Key.new(String.new(bytes).at(0))
-      end
-    end
   end
 end
