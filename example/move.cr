@@ -19,9 +19,17 @@ NCurses.open do
     NCurses.refresh
 
     key = NCurses.getch
-    break if key == 'q'.ord
-    y += 1
-    y = 0 if y >= h
+    break if key.value == 'q'.ord
+    case key
+    when NCurses::KeyCode::LEFT
+      x -= 1
+    when NCurses::KeyCode::RIGHT
+      x += 1
+    when NCurses::KeyCode::UP
+      y -= 1
+    when NCurses::KeyCode::DOWN
+      y += 1
+    end
   end
 end
 
