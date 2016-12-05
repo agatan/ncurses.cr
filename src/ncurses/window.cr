@@ -39,6 +39,10 @@ module NCurses
       check_error(LibNCurses.wgetch(@win), "wgetch")
     end
 
+    def erase
+      check_error(LibNCurses.werase(@win), "werase")
+    end
+
     def addch(ch : LibNCurses::Chtype)
       check_error(LibNCurses.waddch(@win, ch), "addch")
     end

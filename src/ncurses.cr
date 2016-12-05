@@ -44,21 +44,17 @@ module NCurses
 
   defwrapper raw, noraw, echo, noecho, cbreak, nocbreak, start_color
 
-  def keypad(enable)
-    stdscr.keypad(enable)
+  macro def_stdscr(name, *args)
+    def {{name}}({{*args}})
+      stdscr.{{name}}({{*args}})
+    end
   end
 
-  def notimeout(enable)
-    stdscr.notimeout(enable)
-  end
-
-  def getch
-    stdscr.getch
-  end
-
-  def addch(ch)
-    stdscr.addch(ch)
-  end
+  def_stdscr keypad, enable
+  def_stdscr notimeout, enable
+  def_stdscr getch
+  def_stdscr addch, ch
+  def_stdscr erase
 
   # Color
   def init_pair(id, fg, bg)
@@ -87,6 +83,8 @@ NCurses.open do
     x = NCurses.getch
     if x == 0x04 # CTRL_D
       break
+    elsif x == LibNCurses::KeyCode::LEFT.value
+      NCurses.erase
     end
     NCurses.addch(x)
   end

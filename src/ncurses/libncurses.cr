@@ -180,6 +180,7 @@ lib LibNCurses
   fun wgetch(w : Window) : LibC::Int
 
   # Output
+  fun werase(w : Window) : Result
   fun waddch(w : Window, ch : Chtype) : Result
 
   fun delwin(w : Window)
