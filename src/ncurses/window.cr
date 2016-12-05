@@ -58,5 +58,17 @@ module NCurses
     def bkgd(cid)
       check_error(LibNCurses.wbkgd(@win, cid), "wbkgd")
     end
+
+    def move(x, y)
+      check_error(LibNCurses.wmove(@win, x, y), "wmove")
+    end
+
+    def addstr(s)
+      check_error(LibNCurses.waddnstr(@win, s.to_unsafe, s.bytesize), "waddnstr")
+    end
+
+    def refresh
+      check_error(LibNCurses.wrefresh(@win), "wrefresh")
+    end
   end
 end

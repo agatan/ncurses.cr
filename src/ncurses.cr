@@ -55,6 +55,9 @@ module NCurses
   def_stdscr getch
   def_stdscr addch, ch
   def_stdscr erase
+  def_stdscr move, x, y
+  def_stdscr addstr, s
+  def_stdscr refresh
 
   # Color
   def init_pair(id, fg, bg)
@@ -75,18 +78,17 @@ NCurses.open do
   NCurses.cbreak
   NCurses.noecho
   NCurses.keypad(true)
-  NCurses.notimeout(true)
   NCurses.start_color
   NCurses.init_pair(1, LibNCurses::Color::RED, LibNCurses::Color::BLUE)
   NCurses.bkgd(NCurses.color_pair(1))
-  loop do
-    x = NCurses.getch
-    if x == 0x04 # CTRL_D
-      break
-    elsif x == LibNCurses::KeyCode::LEFT.value
-      NCurses.erase
-    end
-    NCurses.addch(x)
-  end
+
+  NCurses.erase
+  NCurses.move(10, 20)
+  NCurses.addstr("Hello, world!")
+  NCurses.refresh
+
+  NCurses.notimeout(true)
+  NCurses.getch
 end
+
 

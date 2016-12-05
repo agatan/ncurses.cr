@@ -181,7 +181,12 @@ lib LibNCurses
 
   # Output
   fun werase(w : Window) : Result
+  fun wrefresh(w : Window) : Result
   fun waddch(w : Window, ch : Chtype) : Result
+  fun waddnstr(w : Window, s : Pointer(UInt8), n : LibC::Int) : Result
+
+  # Cursor
+  fun wmove(w : Window, x : LibC::Int, y : LibC::Int) : Result
 
   fun delwin(w : Window)
 end
