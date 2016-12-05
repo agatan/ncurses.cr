@@ -7,6 +7,7 @@ lib LibNCurses
   alias AttrT = Chtype
 
   ATTR_SHIFT = 8_u32
+
   enum Attribute : AttrT
     NORMAL     = 1_u32 - 1_u32
     ATTRIBUTES = 1_u32 << (0_u32 + ATTR_SHIFT)
@@ -28,6 +29,17 @@ lib LibNCurses
     TOP        = 1_u32 << (21_u32 + ATTR_SHIFT)
     VERTICAL   = 1_u32 << (22_u32 + ATTR_SHIFT)
     ITALIC     = 1_u32 << (23_u32 + ATTR_SHIFT)
+  end
+
+  enum Color : Chtype
+    BRACK = 0
+    RED = 1
+    GREEN = 2
+    YELLOW = 3
+    BLUE = 4
+    MAGENTA = 5
+    CYAN = 6
+    WHITE = 7
   end
 
   enum Result : LibC::Int
@@ -158,8 +170,13 @@ lib LibNCurses
   fun nocbreak : Result
   fun keypad(w : Window, flag : Bool) : Result
 
+  # Color
+  fun start_color() : Result
+  fun init_pair(id : LibC::Short, fg : LibC::Short, bg : LibC::Short) : Result
+  fun wbkgd(w : Window, color_id : Chtype) : Result
+
   # Input
-  fun notimeout(w : Window, bf: Bool) : Result
+  fun notimeout(w : Window, bf : Bool) : Result
   fun wgetch(w : Window) : LibC::Int
 
   # Output

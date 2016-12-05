@@ -22,6 +22,14 @@ module NCurses
     scr
   end
 
+  macro ncurses_bits(mask, shift)
+    ({{mask}} << ({{shift}} + LibNCurses::ATTR_SHIFT))
+  end
+
+  macro color_pair(i)
+    NCurses.ncurses_bits({{i}}, 0)
+  end
+
   macro defwrapper(*names)
     {% for name in names %}
     def {{name}}
@@ -34,7 +42,7 @@ module NCurses
     {% end %}
   end
 
-  defwrapper raw, noraw, echo, noecho, cbreak, nocbreak
+  defwrapper raw, noraw, echo, noecho, cbreak, nocbreak, start_color
 
   def keypad(enable)
     stdscr.keypad(enable)
@@ -52,6 +60,19 @@ module NCurses
     stdscr.addch(ch)
   end
 
+  # Color
+  def init_pair(id, fg, bg)
+    result = LibNCurses.init_pair(id, fg, bg)
+    if result == LibNCurses::Result::ERR
+      raise "ncurses failure: init_color"
+    end
+    result
+  end
+
+  def bkgd(color_id)
+    stdscr.bkgd(color_id)
+  end
+
 end
 
 NCurses.open do
@@ -59,12 +80,15 @@ NCurses.open do
   NCurses.noecho
   NCurses.keypad(true)
   NCurses.notimeout(true)
+  NCurses.start_color
+  NCurses.init_pair(1, LibNCurses::Color::RED, LibNCurses::Color::BLUE)
+  NCurses.bkgd(NCurses.color_pair(1))
   loop do
     x = NCurses.getch
     if x == 0x04 # CTRL_D
       break
     end
-    NCurses.addch('a')
+    NCurses.addch(x)
   end
 end
 

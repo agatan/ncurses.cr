@@ -44,7 +44,15 @@ module NCurses
     end
 
     def addch(ch : Char)
-      addch(ch.ord.to_u32)
+      addch(ch.ord)
+    end
+
+    def addch(ch : Int32)
+      addch(ch.to_u32)
+    end
+
+    def bkgd(cid)
+      check_error(LibNCurses.wbkgd(@win, cid), "wbkgd")
     end
   end
 end
