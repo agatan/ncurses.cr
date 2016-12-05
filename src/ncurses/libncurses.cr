@@ -188,5 +188,9 @@ lib LibNCurses
   # Cursor
   fun wmove(w : Window, x : LibC::Int, y : LibC::Int) : Result
 
+  # Size
+  fun getmaxx(w : Window) : LibC::Int
+  fun getmaxy(w : Window) : LibC::Int
+
   fun delwin(w : Window)
 end

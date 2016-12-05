@@ -70,5 +70,19 @@ module NCurses
     def refresh
       check_error(LibNCurses.wrefresh(@win), "wrefresh")
     end
+
+    macro defcurses(name, *args)
+      def {{name}}({{*args}})
+        check_error(LibNCurses.{{name}}(@win, {{*args}}), {{name.stringify}})
+      end
+    end
+
+    defcurses getmaxx
+    defcurses getmaxy
+
+    def getmaxyx
+      [getmaxy, getmaxx]
+    end
+
   end
 end

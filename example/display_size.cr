@@ -1,0 +1,27 @@
+require "../src/ncurses"
+
+NCurses.open do
+  NCurses.cbreak
+  NCurses.noecho
+  NCurses.keypad(true)
+
+  s = "Hello, world"
+  h, w = NCurses.getmaxyx
+  y = h / 2
+  x = (w - s.size) / 2 # TODO(agatan): multibyte character
+
+  NCurses.notimeout(true)
+
+  loop do
+    NCurses.erase
+    NCurses.move(y, x)
+    NCurses.addstr(s)
+    NCurses.refresh
+
+    key = NCurses.getch
+    break if key == 'q'.ord
+    y += 1
+    y = 0 if y >= h
+  end
+end
+

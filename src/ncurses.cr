@@ -58,6 +58,9 @@ module NCurses
   def_stdscr move, x, y
   def_stdscr addstr, s
   def_stdscr refresh
+  def_stdscr getmaxx
+  def_stdscr getmaxy
+  def_stdscr getmaxyx
 
   # Color
   def init_pair(id, fg, bg)
