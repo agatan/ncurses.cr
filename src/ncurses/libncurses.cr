@@ -158,8 +158,12 @@ lib LibNCurses
   fun nocbreak : Result
   fun keypad(w : Window, flag : Bool) : Result
 
+  # Input
   fun notimeout(w : Window, bf: Bool) : Result
   fun wgetch(w : Window) : LibC::Int
+
+  # Output
+  fun waddch(w : Window, ch : Chtype) : Result
 
   fun delwin(w : Window)
 end

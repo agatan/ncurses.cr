@@ -38,5 +38,13 @@ module NCurses
     def getch
       check_error(LibNCurses.wgetch(@win), "wgetch")
     end
+
+    def addch(ch : LibNCurses::Chtype)
+      check_error(LibNCurses.waddch(@win, ch), "addch")
+    end
+
+    def addch(ch : Char)
+      addch(ch.ord.to_u32)
+    end
   end
 end

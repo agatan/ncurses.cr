@@ -48,6 +48,10 @@ module NCurses
     stdscr.getch
   end
 
+  def addch(ch)
+    stdscr.addch(ch)
+  end
+
 end
 
 NCurses.open do
@@ -60,6 +64,7 @@ NCurses.open do
     if x == 0x04 # CTRL_D
       break
     end
+    NCurses.addch('a')
   end
 end
 
