@@ -193,4 +193,7 @@ lib LibNCurses
   fun getmaxy(w : Window) : LibC::Int
 
   fun delwin(w : Window)
+
+  # misc
+  fun setlocale(category : LibC::Int, locale : Pointer(UInt8))
 end
