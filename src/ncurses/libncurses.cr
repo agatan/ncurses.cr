@@ -8,6 +8,7 @@ lib LibNCurses
 
   ATTR_SHIFT = 8_u32
 
+  @[Flags]
   enum Attribute : AttrT
     NORMAL     = 1_u32 - 1_u32
     ATTRIBUTES = 1_u32 << (0_u32 + ATTR_SHIFT)
@@ -32,7 +33,7 @@ lib LibNCurses
   end
 
   enum Color : Chtype
-    BRACK = 0
+    BLACK = 0
     RED = 1
     GREEN = 2
     YELLOW = 3
@@ -160,6 +161,8 @@ lib LibNCurses
 
   $stdscr : Window
 
+  $color_pairs = COLOR_PAIRS : LibC::Int
+
   fun initscr : Window
   fun endwin : Result
   fun raw : Result
@@ -193,6 +196,11 @@ lib LibNCurses
   fun getmaxy(w : Window) : LibC::Int
 
   fun delwin(w : Window)
+
+  # Attribute
+  fun wattron(w : Window, attr : LibC::Int) : Result
+  fun wattroff(w : Window, attr : LibC::Int) : Result
+  fun wattrset(w : Window, attr : LibC::Int) : Result
 
   # misc
   fun setlocale(category : LibC::Int, locale : Pointer(UInt8))

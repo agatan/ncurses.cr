@@ -5,8 +5,8 @@ NCurses.open do
   NCurses.noecho
   NCurses.keypad(true)
   NCurses.start_color
-  NCurses.init_pair(1, LibNCurses::Color::RED, LibNCurses::Color::BLUE)
-  NCurses.bkgd(NCurses.color_pair(1))
+  pair = NCurses::ColorPair.new(1).init(NCurses::Color::RED, NCurses::Color::BLACK)
+  NCurses.bkgd(pair)
 
   NCurses.erase
   NCurses.move(10, 20)

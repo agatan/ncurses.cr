@@ -56,8 +56,8 @@ module NCurses
       addch(ch.to_u32)
     end
 
-    def bkgd(cid)
-      check_error(LibNCurses.wbkgd(@win, cid), "wbkgd")
+    def bkgd(cpair)
+      check_error(LibNCurses.wbkgd(@win, cpair.attr), "wbkgd")
     end
 
     def move(x, y)
@@ -71,6 +71,16 @@ module NCurses
     def refresh
       check_error(LibNCurses.wrefresh(@win), "wrefresh")
     end
+
+    macro def_w(name, *args)
+      def {{name}}({{*args}})
+        check_error(LibNCurses.w{{name}}(@win, {{*args}}), {{name.stringify}})
+      end
+    end
+
+    def_w attron, attr
+    def_w attroff, attr
+    def_w attrset, attr
 
     macro defcurses(name, *args)
       def {{name}}({{*args}})

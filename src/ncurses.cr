@@ -71,8 +71,8 @@ module NCurses
     result
   end
 
-  def bkgd(color_id)
-    stdscr.bkgd(color_id)
+  def bkgd(cpair : ColorPair)
+    stdscr.bkgd(cpair)
   end
 
 end
