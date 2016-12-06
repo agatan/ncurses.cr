@@ -78,9 +78,26 @@ module NCurses
       end
     end
 
-    def_w attron, attr
-    def_w attroff, attr
-    def_w attrset, attr
+    def attron(attr : Attribute)
+      check_error(LibNCurses.wattron(@win, attr.value), "wattron")
+    end
+
+    def attron(attr : Attribute, &blk)
+      check_error(LibNCurses.wattron(@win, attr.value), "wattron")
+      begin
+        yield
+      ensure
+        attroff(attr)
+      end
+    end
+
+    def attroff(attr : Attribute)
+      check_error(LibNCurses.wattroff(@win, attr.value), "wattron")
+    end
+
+    def attrset(attr : Attribute)
+      check_error(LibNCurses.wattrset(@win, attr.value), "wattron")
+    end
 
     macro defcurses(name, *args)
       def {{name}}({{*args}})

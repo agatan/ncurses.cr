@@ -61,6 +61,13 @@ module NCurses
   def_stdscr getmaxx
   def_stdscr getmaxy
   def_stdscr getmaxyx
+  def_stdscr attron, attr
+  def_stdscr attroff, attr
+  def_stdscr attrset, attr
+
+  def attron(attr : Attribute, &blk)
+    stdscr.attron(attr, &blk)
+  end
 
   # Color
   def init_pair(id, fg, bg)
