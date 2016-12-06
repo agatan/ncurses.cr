@@ -55,6 +55,8 @@ module NCurses
   def_stdscr getch
   def_stdscr addch, ch
   def_stdscr addch, ch, attr
+  def_stdscr mvaddch, ch, y, x
+  def_stdscr mvaddch, ch, attr, y, x
   def_stdscr erase
   def_stdscr move, x, y
   def_stdscr addstr, s

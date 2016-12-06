@@ -186,10 +186,11 @@ lib LibNCurses
   fun werase(w : Window) : Result
   fun wrefresh(w : Window) : Result
   fun waddch(w : Window, ch : Chtype) : Result
+  fun mvwaddch(w : Window, y : LibC::Int, x : LibC::Int, ch : Chtype) : Result
   fun waddnstr(w : Window, s : Pointer(UInt8), n : LibC::Int) : Result
 
   # Cursor
-  fun wmove(w : Window, x : LibC::Int, y : LibC::Int) : Result
+  fun wmove(w : Window, y : LibC::Int, x : LibC::Int) : Result
 
   # Size
   fun getmaxx(w : Window) : LibC::Int

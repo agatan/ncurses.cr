@@ -24,8 +24,7 @@ NCurses.open do
   end
 
   y += 1
-  NCurses.move(y, x)
-  NCurses.addch('N', red.attr)
+  NCurses.mvaddch('N', red.attr, x: x, y: y)
   NCurses.addch('O', NCurses::Attribute::BLINK)
   NCurses.addch('R', NCurses::Attribute::BOLD)
   NCurses.addch('M')

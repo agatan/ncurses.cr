@@ -45,7 +45,11 @@ module NCurses
     end
 
     private def addch(ch : LibNCurses::Chtype)
-      check_error(LibNCurses.waddch(@win, ch), "addch")
+      check_error(LibNCurses.waddch(@win, ch), "waddch")
+    end
+
+    private def mvaddch(y, x, ch : LibNCurses::Chtype)
+      check_error(LibNCurses.mvwaddch(@win, y, x, ch), "mvwaddch")
     end
 
     def addch(ch : Char)
@@ -56,12 +60,20 @@ module NCurses
       addch((ch.ord | attr.value).to_u32)
     end
 
+    def mvaddch(ch : Char, y, x)
+      mvaddch(y, x, ch.ord.to_u32)
+    end
+
+    def mvaddch(ch : Char, attr : Attribute, y, x)
+      mvaddch(y, x, (ch.ord | attr.value).to_u32)
+    end
+
     def bkgd(cpair : ColorPair)
       check_error(LibNCurses.wbkgd(@win, cpair.attr), "wbkgd")
     end
 
-    def move(x, y)
-      check_error(LibNCurses.wmove(@win, x, y), "wmove")
+    def move(y, x)
+      check_error(LibNCurses.wmove(@win, y, x), "wmove")
     end
 
     def addstr(s)
