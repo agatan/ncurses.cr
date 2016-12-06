@@ -37,7 +37,7 @@ module NCurses
 
     def getch
       key = check_error(LibNCurses.wgetch(@win), "wgetch")
-      KeyCode.new(key)
+      KeyCode.from_value?(key) || key
     end
 
     def erase

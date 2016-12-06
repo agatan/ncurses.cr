@@ -19,8 +19,9 @@ NCurses.open do
     NCurses.refresh
 
     key = NCurses.getch
-    break if key.value == 'q'.ord
     case key
+    when 'q'
+      break
     when NCurses::KeyCode::LEFT
       x -= 1
     when NCurses::KeyCode::RIGHT
