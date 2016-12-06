@@ -44,19 +44,19 @@ module NCurses
       check_error(LibNCurses.werase(@win), "werase")
     end
 
-    def addch(ch : LibNCurses::Chtype)
+    private def addch(ch : LibNCurses::Chtype)
       check_error(LibNCurses.waddch(@win, ch), "addch")
     end
 
     def addch(ch : Char)
-      addch(ch.ord)
+      addch(ch.ord.to_u32)
     end
 
-    def addch(ch : Int32)
-      addch(ch.to_u32)
+    def addch(ch : Char, attr : Attribute)
+      addch((ch.ord | attr.value).to_u32)
     end
 
-    def bkgd(cpair)
+    def bkgd(cpair : ColorPair)
       check_error(LibNCurses.wbkgd(@win, cpair.attr), "wbkgd")
     end
 

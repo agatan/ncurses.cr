@@ -18,14 +18,18 @@ NCurses.open do
   y += 1
   NCurses.move(y, x)
   NCurses.start_color
-  fg_red = NCurses::ColorPair.new(2).init(NCurses::Color::RED, NCurses::Color::BLACK)
-  NCurses.attron(NCurses::Attribute::BOLD | fg_red.attr) do
+  red = NCurses::ColorPair.new(2).init(NCurses::Color::RED, NCurses::Color::BLACK)
+  NCurses.attron(NCurses::Attribute::BOLD | red.attr) do
     NCurses.addstr("BOLD")
   end
 
   y += 1
   NCurses.move(y, x)
-  NCurses.addstr("NORMAL")
+  NCurses.addch('N', red.attr)
+  NCurses.addch('O', NCurses::Attribute::BLINK)
+  NCurses.addch('R', NCurses::Attribute::BOLD)
+  NCurses.addch('M')
+  NCurses.addstr("AL")
 
   NCurses.refresh
   NCurses.notimeout(true)
