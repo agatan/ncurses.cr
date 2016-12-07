@@ -2,24 +2,20 @@ require "./libncurses"
 require "./raw_window"
 
 module NCurses
-  class Window
+  class Pad
     include RawWindow
 
-    def initialize(@win : LibNCurses::Window)
+    def initialize(height, width)
+      @win = LibNCurses.newpad(height, width)
       @closed = false
     end
 
-    def initialize(height, width, y, x)
-      @win = LibNCurses.newwin(height, width, y, x)
-      @closed = false
-    end
-
-    def self.open(height, width, y, x, &blk)
-      win = new(height, width, y, x)
+    def self.open(height, width)
+      pad = new(height, width)
       begin
-        yield win
+        yield pad
       ensure
-        win.close
+        pad.close
       end
     end
 
@@ -41,8 +37,10 @@ module NCurses
       @win
     end
 
-    def refresh
-      check_error(LibNCurses.wrefresh(@win), "wrefresh")
+    def refresh(px, py, sminrow, smincol, smaxrow, smaxcol)
+      check_error(
+        LibNCurses.prefresh(@win, px, py, sminrow, smincol, smaxrow, smaxcol),
+        "prefresh")
     end
   end
 end

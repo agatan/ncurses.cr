@@ -188,13 +188,19 @@ lib LibNCurses
   fun wrefresh(w : Window) : Result
   fun waddch(w : Window, ch : Chtype) : Result
   fun waddnstr(w : Window, s : Pointer(UInt8), n : LibC::Int) : Result
+  fun whline(w : Window, ch : Chtype, n : LibC::Int) : Result
+  fun wvline(w : Window, ch : Chtype, n : LibC::Int) : Result
 
   # Window
   fun newwin(height : LibC::Int, width : LibC::Int, y : LibC::Int, x : LibC::Int) : Window
   fun wborder(w : Window, ls : Chtype, rs : Chtype, ts : Chtype, bs : Chtype,
               tl : Chtype, tr : Chtype, bl : Chtype, br : Chtype) : Result
-  fun whline(w : Window, ch : Chtype, n : LibC::Int) : Result
-  fun wvline(w : Window, ch : Chtype, n : LibC::Int) : Result
+
+  # Pad
+  fun newpad(height : LibC::Int, width : LibC::Int) : Window
+  fun prefresh(w : Window, pminrow : LibC::Int, pmincol : LibC::Int,
+               sminrow : LibC::Int, smincol : LibC::Int,
+               smaxrow : LibC::Int, smaxcol : LibC::Int) : Result
 
   # Cursor
   fun wmove(w : Window, y : LibC::Int, x : LibC::Int) : Result
