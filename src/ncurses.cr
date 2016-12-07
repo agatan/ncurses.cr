@@ -52,6 +52,7 @@ module NCurses
 
   delegate keypad, to: stdscr
   delegate notimeout, to: stdscr
+  delegate nodelay, to: stdscr
   delegate getch, to: stdscr
   delegate addch, to: stdscr
   delegate addch, to: stdscr
