@@ -7,6 +7,16 @@ module NCurses
 
   @@stdscr : Window | Nil = nil
 
+  def init
+    @@stdscr = Window.new(LibNCurses.initscr)
+  end
+
+  def endwin
+    return unless @@stdscr
+    LibNCurses.endwin
+    @@stdscr = nil
+  end
+
   def open
     @@stdscr = Window.new(LibNCurses.initscr)
     begin
