@@ -26,10 +26,6 @@ module NCurses
     ({{mask}} << ({{shift}} + LibNCurses::ATTR_SHIFT))
   end
 
-  macro color_pair(i)
-    NCurses.ncurses_bits({{i}}, 0)
-  end
-
   macro defwrapper(*names)
     {% for name in names %}
     def {{name}}
@@ -44,45 +40,32 @@ module NCurses
 
   defwrapper raw, noraw, echo, noecho, cbreak, nocbreak, start_color
 
-  macro def_stdscr(name, *args)
-    def {{name}}({{*args}})
-      stdscr.{{name}}({{*args}})
-    end
-  end
-
-  def_stdscr keypad, enable
-  def_stdscr notimeout, enable
-  def_stdscr getch
-  def_stdscr addch, ch
-  def_stdscr addch, ch, attr
-  def_stdscr mvaddch, ch, y, x
-  def_stdscr mvaddch, ch, attr, y, x
-  def_stdscr erase
-  def_stdscr move, x, y
-  def_stdscr addstr, s
-  def_stdscr refresh
-  def_stdscr getmaxx
-  def_stdscr getmaxy
-  def_stdscr getmaxyx
-  def_stdscr attron, attr
-  def_stdscr attroff, attr
-  def_stdscr attrset, attr
+  delegate keypad, to: stdscr
+  delegate notimeout, to: stdscr
+  delegate getch, to: stdscr
+  delegate addch, to: stdscr
+  delegate addch, to: stdscr
+  delegate mvaddch, to: stdscr
+  delegate mvaddch, to: stdscr
+  delegate erase, to: stdscr
+  delegate move, to: stdscr
+  delegate addstr, to: stdscr
+  delegate mvaddstr, to: stdscr
+  delegate refresh, to: stdscr
+  delegate maxx, to: stdscr
+  delegate maxy, to: stdscr
+  delegate maxyx, to: stdscr
+  delegate attroff, to: stdscr
+  delegate attrset, to: stdscr
+  delegate border, to: stdscr
+  delegate box, to: stdscr
+  delegate hline, vline, to: stdscr
+  delegate mvhline, mvvline, to: stdscr
+  delegate attron, to: stdscr
+  delegate bkgd, to: stdscr
 
   def attron(attr : Attribute, &blk)
     stdscr.attron(attr, &blk)
-  end
-
-  # Color
-  def init_pair(id, fg, bg)
-    result = LibNCurses.init_pair(id, fg, bg)
-    if result == LibNCurses::Result::ERR
-      raise "ncurses failure: init_color"
-    end
-    result
-  end
-
-  def bkgd(cpair : ColorPair)
-    stdscr.bkgd(cpair)
   end
 
 end

@@ -8,7 +8,7 @@ NCurses.open do
   NCurses.keypad(true)
 
   s = "あいう"
-  h, w = NCurses.getmaxyx
+  h, w = NCurses.maxyx
   y = h / 2
   x = (w - s.size) / 2 # TODO(agatan): multibyte character
 

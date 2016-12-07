@@ -23,4 +23,14 @@ module NCurses
   def max_color_pairs
     LibNCurses.color_pairs.as(Int32)
   end
+
+  def colors
+    (1...LibNCurses.colors).map{ |c| Color.new(c.to_u32) }
+  end
+
+  def use_default_colors
+    if LibNCurses.use_default_colors == LibNCurses::Result::ERR
+      raise "ncurses failure: use_default_colors"
+    end
+  end
 end

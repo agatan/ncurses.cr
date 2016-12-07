@@ -6,7 +6,7 @@ NCurses.open do
   NCurses.keypad(true)
 
   s = "Hello, world"
-  h, w = NCurses.getmaxyx
+  h, w = NCurses.maxy, NCurses.maxx
   y = h / 2
   x = (w - s.size) / 2 # TODO(agatan): multibyte character
 

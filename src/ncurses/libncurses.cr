@@ -33,14 +33,14 @@ lib LibNCurses
   end
 
   enum Color : Chtype
-    BLACK = 0
-    RED = 1
-    GREEN = 2
-    YELLOW = 3
-    BLUE = 4
+    BLACK   = 0
+    RED     = 1
+    GREEN   = 2
+    YELLOW  = 3
+    BLUE    = 4
     MAGENTA = 5
-    CYAN = 6
-    WHITE = 7
+    CYAN    = 6
+    WHITE   = 7
   end
 
   enum Result : LibC::Int
@@ -161,6 +161,7 @@ lib LibNCurses
 
   $stdscr : Window
 
+  $colors = COLORS : LibC::Int
   $color_pairs = COLOR_PAIRS : LibC::Int
 
   fun initscr : Window
@@ -174,7 +175,7 @@ lib LibNCurses
   fun keypad(w : Window, flag : Bool) : Result
 
   # Color
-  fun start_color() : Result
+  fun start_color : Result
   fun init_pair(id : LibC::Short, fg : LibC::Short, bg : LibC::Short) : Result
   fun wbkgd(w : Window, color_id : Chtype) : Result
 
@@ -186,11 +187,23 @@ lib LibNCurses
   fun werase(w : Window) : Result
   fun wrefresh(w : Window) : Result
   fun waddch(w : Window, ch : Chtype) : Result
-  fun mvwaddch(w : Window, y : LibC::Int, x : LibC::Int, ch : Chtype) : Result
   fun waddnstr(w : Window, s : Pointer(UInt8), n : LibC::Int) : Result
+
+  # Window
+  fun newwin(height : LibC::Int, width : LibC::Int, y : LibC::Int, x : LibC::Int) : Window
+  fun wborder(w : Window, ls : Chtype, rs : Chtype, ts : Chtype, bs : Chtype,
+              tl : Chtype, tr : Chtype, bl : Chtype, br : Chtype) : Result
+  fun whline(w : Window, ch : Chtype, n : LibC::Int) : Result
+  fun wvline(w : Window, ch : Chtype, n : LibC::Int) : Result
 
   # Cursor
   fun wmove(w : Window, y : LibC::Int, x : LibC::Int) : Result
+
+  # mv prefix
+  fun mvwaddch(w : Window, y : LibC::Int, x : LibC::Int, ch : Chtype) : Result
+  fun mvwaddnstr(w : Window, y : LibC::Int, x : LibC::Int, s : Pointer(UInt8), n : LibC::Int) : Result
+  fun mvwhline(w : Window, y : LibC::Int, x : LibC::Int, ch : Chtype, n : LibC::Int) : Result
+  fun mvwvline(w : Window, y : LibC::Int, x : LibC::Int, ch : Chtype, n : LibC::Int) : Result
 
   # Size
   fun getmaxx(w : Window) : LibC::Int
@@ -202,6 +215,7 @@ lib LibNCurses
   fun wattron(w : Window, attr : LibC::Int) : Result
   fun wattroff(w : Window, attr : LibC::Int) : Result
   fun wattrset(w : Window, attr : LibC::Int) : Result
+  fun use_default_colors : Result
 
   # misc
   fun setlocale(category : LibC::Int, locale : Pointer(UInt8))

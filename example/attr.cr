@@ -6,7 +6,7 @@ NCurses.open do
   NCurses.keypad(true)
 
   s = "Hello, world"
-  h, w = NCurses.getmaxyx
+  h, w = NCurses.maxyx
   y = h / 2
   x = (w - s.size) / 2 # TODO(agatan): multibyte character
 
@@ -27,11 +27,17 @@ NCurses.open do
   NCurses.mvaddch('N', red.attr, x: x, y: y)
   NCurses.addch('O', NCurses::Attribute::BLINK)
   NCurses.addch('R', NCurses::Attribute::BOLD)
+  NCurses.attron(NCurses::Attribute::UNDERLINE)
   NCurses.addch('M')
+  NCurses.attroff(NCurses::Attribute::UNDERLINE)
   NCurses.addstr("AL")
+
+  y += 1
+  NCurses.attron(red.attr) do
+    NCurses.mvaddstr("RED STRING", x: x, y: y)
+  end
 
   NCurses.refresh
   NCurses.notimeout(true)
   NCurses.getch
 end
-
