@@ -17,6 +17,10 @@ module NCurses
       check_error(LibNCurses.notimeout(raw_win, enable), "notimeout")
     end
 
+    def touch
+      check_error(LibNCurses.touchwin(raw_win), "touchwin")
+    end
+
     def getch
       key = check_error(LibNCurses.wgetch(raw_win), "wgetch")
       KeyCode.from_value?(key) || key
