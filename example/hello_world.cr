@@ -9,6 +9,7 @@ NCurses.open do
   NCurses.bkgd(pair)
 
   NCurses.erase
+  NCurses.addstr(NCurses.longname)
   NCurses.move(10, 20)
   NCurses.addstr("Hello, world!")
   NCurses.refresh

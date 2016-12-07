@@ -64,8 +64,8 @@ module NCurses
   delegate attron, to: stdscr
   delegate bkgd, to: stdscr
 
-  def attron(attr : Attribute, &blk)
-    stdscr.attron(attr, &blk)
+  def longname
+    String.new(LibNCurses.longname)
   end
 
 end

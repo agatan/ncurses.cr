@@ -225,5 +225,8 @@ lib LibNCurses
   fun use_default_colors : Result
 
   # misc
-  fun setlocale(category : LibC::Int, locale : Pointer(UInt8))
+  fun longname : Pointer(LibC::Char)
+
+  # for multibyte char...
+  fun setlocale(category : LibC::Int, locale : Pointer(LibC::Char))
 end
