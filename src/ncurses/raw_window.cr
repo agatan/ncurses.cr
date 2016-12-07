@@ -26,8 +26,7 @@ module NCurses
     end
 
     def getch
-      key = LibNCurses.wgetch(raw_win)
-      return nil if key == 255
+      key = check_error(LibNCurses.wgetch(raw_win), "wgetch")
       KeyCode.from_value?(key) || key
     end
 
