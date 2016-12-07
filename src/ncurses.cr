@@ -68,5 +68,9 @@ module NCurses
     String.new(LibNCurses.longname)
   end
 
+  def curses_version
+    String.new(LibNCurses.curses_version)
+  end
+
 end
 

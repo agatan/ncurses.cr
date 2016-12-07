@@ -172,6 +172,7 @@ lib LibNCurses
   fun noecho : Result
   fun cbreak : Result
   fun nocbreak : Result
+  fun nodelay(w : Window, flag : Bool) : Result
   fun keypad(w : Window, flag : Bool) : Result
 
   # Color
@@ -226,6 +227,7 @@ lib LibNCurses
 
   # misc
   fun longname : Pointer(LibC::Char)
+  fun curses_version : Pointer(LibC::Char)
 
   # for multibyte char...
   fun setlocale(category : LibC::Int, locale : Pointer(LibC::Char))
