@@ -1,6 +1,6 @@
 # ncurses
 
-TODO: Write a description here
+`ncurses.cr` is a Crystal binding to the C ncurses library.
 
 ## Installation
 
@@ -10,23 +10,46 @@ Add this to your application's `shard.yml`:
 ```yaml
 dependencies:
   ncurses:
-    github: [your-github-name]/ncurses
+    github: agatan/ncurses.cr
 ```
 
 
 ## Usage
 
-
 ```crystal
 require "ncurses"
+
+NCurses.open do
+  # initialize
+  NCurses.cbreak
+  NCurses.noecho
+  NCurses.start_color
+
+  # define background color
+  pair = NCurses::ColorPair.new(1).init(NCurses::Color::RED, NCurses::Color::BLACK)
+  NCurses.bkgd(pair)
+
+  NCurses.erase
+  # move the cursor
+  NCurses.move(x: 0, y: 1)
+  # longname returns the verbose description of the current terminal
+  NCurses.addstr(NCurses.longname)
+
+  NCurses.move(x: 0, y: 2)
+  NCurses.addstr(NCurses.curses_version)
+
+  NCurses.move(y: 10, x: 20)
+  NCurses.addstr("Hello, world!")
+  NCurses.refresh
+
+  NCurses.notimeout(true)
+  NCurses.getch
+end
 ```
 
+### Examples
 
-TODO: Write usage instructions here
-
-## Development
-
-TODO: Write development instructions here
+See `example/` for more examples.
 
 ## Contributing
 
@@ -38,4 +61,4 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [[your-github-name]](https://github.com/[your-github-name]) agatan - creator, maintainer
+- [agatan](https://github.com/agatan) Naomichi Agata - creator, maintainer
