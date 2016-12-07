@@ -174,6 +174,8 @@ lib LibNCurses
   fun nocbreak : Result
   fun nodelay(w : Window, flag : Bool) : Result
   fun keypad(w : Window, flag : Bool) : Result
+  fun nl : Result
+  fun nonl : Result
 
   # Color
   fun start_color : Result
