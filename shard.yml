@@ -2,13 +2,6 @@ name: ncurses
 version: 0.1.0
 
 authors:
-  - agatan <agatan039@gmail.com>
-
-
-crystal: 0.19.4
-
-development_dependencies:
-    crystal_lib:
-        github: crystal-lang/crystal_lib
+  - Naomichi Agata <agatan039@gmail.com>
 
 license: MIT
