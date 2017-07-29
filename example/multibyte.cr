@@ -10,7 +10,7 @@ NCurses.open do
   s = "あいう"
   h, w = NCurses.maxyx
   y = h / 2
-  x = (w - s.size) / 2 # TODO(agatan): multibyte character
+  x = (w - s.size) / 2
 
   NCurses.notimeout(true)
 
