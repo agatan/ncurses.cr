@@ -7,8 +7,6 @@ NCurses.open do
 
   NCurses.box(v: '|', h: '=')
   NCurses.mvaddstr("I'm the stdscr. Press any key to quit.", x: 10, y: 5)
-  NCurses.hline('=', 5)
-  NCurses.vline(':', 5)
 
   NCurses::Window.open(x: 10, y: 5, height: 10, width: 20) do |win|
     win.border
