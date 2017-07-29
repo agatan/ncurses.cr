@@ -1,4 +1,4 @@
-@[Link("ncurses")]
+@[Link("ncursesw")]
 lib LibNCurses
   type Window = Void*
   type Screen = Void*
