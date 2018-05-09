@@ -49,6 +49,7 @@ lib LibNCurses
   end
 
   enum KeyCode : LibC::Int
+    ESC = 27
     CODE_YES  = 0o400
     MIN       = 0o401
     BREAK     = 0o401

@@ -20,7 +20,7 @@ NCurses.open do
 
     key = NCurses.getch
     case key
-    when 'q'
+    when 'q', NCurses::KeyCode::ESC
       break
     when NCurses::KeyCode::LEFT
       x -= 1
