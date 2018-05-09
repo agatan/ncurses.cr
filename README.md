@@ -13,7 +13,7 @@ dependencies:
     github: agatan/ncurses.cr
 ```
 
-You should install ncurses library.
+You also need to install the ncurses library.
 e.g. in ubuntu, `sudo apt install libncursesw5-dev`
 
 
