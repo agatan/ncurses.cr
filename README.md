@@ -13,6 +13,9 @@ dependencies:
     github: agatan/ncurses.cr
 ```
 
+You should install ncurses library.
+e.g. in ubuntu, `sudo apt install libncursesw5-dev`
+
 
 ## Usage
 
