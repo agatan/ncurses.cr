@@ -221,6 +221,7 @@ lib LibNCurses
   # Size
   fun getmaxx(w : Window) : LibC::Int
   fun getmaxy(w : Window) : LibC::Int
+  fun wresize(w : Window, height : LibC::Int, width : LibC::Int) : Result
 
   fun delwin(w : Window)
 

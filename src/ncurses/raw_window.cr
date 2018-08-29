@@ -153,5 +153,9 @@ module NCurses
     def maxyx
       { maxy, maxx }
     end
+
+    def resize(height, width)
+      check_error(LibNCurses.wresize(raw_win, height, width), "wresize")
+    end
   end
 end
