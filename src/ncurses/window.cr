@@ -3,6 +3,7 @@ require "./raw_window"
 
 module NCurses
   class Window
+    property closed : Bool = false
     include RawWindow
 
     def initialize(@win : LibNCurses::Window)
@@ -16,6 +17,26 @@ module NCurses
 
     def self.open(height, width, y, x, &blk)
       win = new(height, width, y, x)
+      begin
+        yield win
+      ensure
+        win.close
+      end
+    end
+
+    def self.subwin(height, width, y, x, parent, &blk)
+      win = new(LibNCurses.subwin(parent, height, width, y, x))
+      wind.closed = false
+      begin
+        yield win
+      ensure
+        win.close
+      end
+    end
+
+    def self.derwin(height, width, y, x, parent, &blk)
+      win = new(LibNCurses.derwin(parent, height, width, y, x))
+      win.closed = false
       begin
         yield win
       ensure

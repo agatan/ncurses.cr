@@ -201,6 +201,8 @@ lib LibNCurses
   fun wborder(w : Window, ls : Chtype, rs : Chtype, ts : Chtype, bs : Chtype,
               tl : Chtype, tr : Chtype, bl : Chtype, br : Chtype) : Result
   fun touchwin(w : Window) : Result
+  fun subwin(parent : Window, height : LibC::Int, width : LibC::Int, y : LibC::Int, x : LibC::Int) : Window
+  fun derwin(parent : Window, height : LibC::Int, width : LibC::Int, y : LibC::Int, x : LibC::Int) : Window
 
   # Pad
   fun newpad(height : LibC::Int, width : LibC::Int) : Window
