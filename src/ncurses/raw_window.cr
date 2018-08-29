@@ -34,6 +34,10 @@ module NCurses
       check_error(LibNCurses.werase(raw_win), "werase")
     end
 
+    def curs_set(value : Int)
+      check_error(LibNCurses.curs_set(value), "curs_set")
+    end
+
     private def to_chtype(x : Char | Attribute | Int)
       case x
       when Char

@@ -208,6 +208,7 @@ lib LibNCurses
                smaxrow : LibC::Int, smaxcol : LibC::Int) : Result
 
   # Cursor
+  fun curs_set(i : LibC::Int) : Result
   fun wmove(w : Window, y : LibC::Int, x : LibC::Int) : Result
 
   # mv prefix
