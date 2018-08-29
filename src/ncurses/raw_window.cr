@@ -82,7 +82,11 @@ module NCurses
     end
 
     def addstr(s)
-      check_error(LibNCurses.waddnstr(raw_win, s.to_unsafe, s.bytesize), "waddnstr")
+      addnstr(s, s.bytesize)
+    end
+
+    def addnstr(s, i : Int32)
+      check_error(LibNCurses.waddnstr(raw_win, s.to_unsafe, i), "waddnstr")
     end
 
     def mvaddstr(s, y, x)
