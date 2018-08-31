@@ -34,6 +34,10 @@ module NCurses
       check_error(LibNCurses.werase(raw_win), "werase")
     end
 
+    def curs_set(value : Int)
+      check_error(LibNCurses.curs_set(value), "curs_set")
+    end
+
     private def to_chtype(x : Char | Attribute | Int)
       case x
       when Char
@@ -78,7 +82,11 @@ module NCurses
     end
 
     def addstr(s)
-      check_error(LibNCurses.waddnstr(raw_win, s.to_unsafe, s.bytesize), "waddnstr")
+      addnstr(s, s.bytesize)
+    end
+
+    def addnstr(s, i : Int32)
+      check_error(LibNCurses.waddnstr(raw_win, s.to_unsafe, i), "waddnstr")
     end
 
     def mvaddstr(s, y, x)
@@ -148,6 +156,10 @@ module NCurses
 
     def maxyx
       { maxy, maxx }
+    end
+
+    def resize(height, width)
+      check_error(LibNCurses.wresize(raw_win, height, width), "wresize")
     end
   end
 end

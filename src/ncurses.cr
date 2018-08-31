@@ -50,6 +50,7 @@ module NCurses
 
   defwrapper raw, noraw, echo, noecho, cbreak, nocbreak, start_color, nl, nonl
 
+  delegate curs_set, to: stdscr
   delegate keypad, to: stdscr
   delegate notimeout, to: stdscr
   delegate nodelay, to: stdscr

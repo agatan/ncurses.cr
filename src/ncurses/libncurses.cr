@@ -50,6 +50,7 @@ lib LibNCurses
 
   enum KeyCode : LibC::Int
     ESC = 27
+    RETURN = 10
     CODE_YES  = 0o400
     MIN       = 0o401
     BREAK     = 0o401
@@ -200,6 +201,8 @@ lib LibNCurses
   fun wborder(w : Window, ls : Chtype, rs : Chtype, ts : Chtype, bs : Chtype,
               tl : Chtype, tr : Chtype, bl : Chtype, br : Chtype) : Result
   fun touchwin(w : Window) : Result
+  fun subwin(parent : Window, height : LibC::Int, width : LibC::Int, y : LibC::Int, x : LibC::Int) : Window
+  fun derwin(parent : Window, height : LibC::Int, width : LibC::Int, y : LibC::Int, x : LibC::Int) : Window
 
   # Pad
   fun newpad(height : LibC::Int, width : LibC::Int) : Window
@@ -208,6 +211,7 @@ lib LibNCurses
                smaxrow : LibC::Int, smaxcol : LibC::Int) : Result
 
   # Cursor
+  fun curs_set(i : LibC::Int) : Result
   fun wmove(w : Window, y : LibC::Int, x : LibC::Int) : Result
 
   # mv prefix
@@ -219,6 +223,7 @@ lib LibNCurses
   # Size
   fun getmaxx(w : Window) : LibC::Int
   fun getmaxy(w : Window) : LibC::Int
+  fun wresize(w : Window, height : LibC::Int, width : LibC::Int) : Result
 
   fun delwin(w : Window)
 

@@ -23,6 +23,24 @@ module NCurses
       end
     end
 
+    def self.subwin(height, width, y, x, parent, &blk)
+      win = new(LibNCurses.subwin(parent, height, width, y, x))
+      begin
+        yield win
+      ensure
+        win.close
+      end
+    end
+
+    def self.derwin(height, width, y, x, parent, &blk)
+      win = new(LibNCurses.derwin(parent, height, width, y, x))
+      begin
+        yield win
+      ensure
+        win.close
+      end
+    end
+
     def finalize
       close
     end
