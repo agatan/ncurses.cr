@@ -48,7 +48,7 @@ module NCurses
     {% end %}
   end
 
-  defwrapper raw, noraw, echo, noecho, cbreak, nocbreak, start_color, nl, nonl
+  defwrapper raw, noraw, echo, noecho, cbreak, nocbreak, start_color, nl, nonl, clear, erase
 
   delegate curs_set, to: stdscr
   delegate keypad, to: stdscr
