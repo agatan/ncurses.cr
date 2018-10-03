@@ -178,6 +178,8 @@ lib LibNCurses
   fun keypad(w : Window, flag : Bool) : Result
   fun nl : Result
   fun nonl : Result
+  fun clear : Result
+  fun erase : Result
 
   # Color
   fun start_color : Result
