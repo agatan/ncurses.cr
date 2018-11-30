@@ -2,15 +2,29 @@ require "./libncurses"
 
 module NCurses
   alias Attribute = LibNCurses::Attribute
+
+  struct ColorDefault
+  end
+
   alias Color = LibNCurses::Color
 
   struct ColorPair
     def initialize(@id : Int32)
     end
 
-    def init(fg : Color, bg : Color)
-      if LibNCurses.init_pair(@id, fg.value, bg.value) == LibNCurses::Result::ERR
-        raise "ncurses failure: init_pair"
+    def init(fg : Color | ColorDefault, bg : Color | ColorDefault)
+      fg = if fg.is_a?(Color)
+             fg.value
+           else
+             -1
+           end
+      bg = if bg.is_a?(Color)
+             bg.value
+           else
+             -1
+           end
+      if LibNCurses.init_pair(@id, fg, bg) == LibNCurses::Result::ERR
+        raise "ncurses failure: init_pair, #{@id}, #{fg}, #{bg}"
       end
       self
     end
