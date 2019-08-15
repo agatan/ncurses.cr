@@ -155,11 +155,25 @@ module NCurses
     end
 
     def maxyx
-      { maxy, maxx }
+      {maxy, maxx}
     end
 
     def resize(height, width)
       check_error(LibNCurses.wresize(raw_win, height, width), "wresize")
+    end
+
+    def mousemask(newmask : MouseMask, oldmask : MouseMask? = nil)
+      mask = oldmask || MouseMask.new(0)
+      check_error(LibNCurses.mousemask(newmask, pointerof(mask)), "mousemask")
+    end
+
+    def getmouse
+      check_error(LibNCurses.getmouse(out event), "getmouse")
+      event
+    end
+
+    def mouseinterval(interval : Int32)
+      check_error(LibNCurses.mouseinterval(interval), "mouseinterval")
     end
   end
 end

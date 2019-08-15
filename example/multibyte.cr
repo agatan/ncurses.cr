@@ -26,4 +26,3 @@ NCurses.open do
     y = 0 if y >= h
   end
 end
-
