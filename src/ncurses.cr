@@ -4,6 +4,7 @@ module NCurses
   extend self
 
   alias KeyCode = LibNCurses::KeyCode
+  alias MouseMask = LibNCurses::MouseMask
 
   @@stdscr : Window | Nil = nil
 
@@ -75,6 +76,9 @@ module NCurses
   delegate mvhline, mvvline, to: stdscr
   delegate attron, to: stdscr
   delegate bkgd, to: stdscr
+  delegate mousemask, to: stdscr
+  delegate getmouse, to: stdscr
+  delegate mouseinterval, to: stdscr
 
   def longname
     String.new(LibNCurses.longname)
@@ -83,6 +87,4 @@ module NCurses
   def curses_version
     String.new(LibNCurses.curses_version)
   end
-
 end
-

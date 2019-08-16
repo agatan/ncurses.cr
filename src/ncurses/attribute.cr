@@ -25,7 +25,7 @@ module NCurses
   end
 
   def colors
-    (1...LibNCurses.colors).map{ |c| Color.new(c.to_u32) }
+    (1...LibNCurses.colors).map { |c| Color.new(c.to_u32) }
   end
 
   def use_default_colors

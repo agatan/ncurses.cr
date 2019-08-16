@@ -3,6 +3,12 @@ lib LibNCurses
   type Window = Void*
   type Screen = Void*
 
+  struct MEvent
+    id : LibC::Short
+    x, y, z : LibC::Int
+    bstate : MouseMask
+  end
+
   alias Chtype = LibC::UInt
   alias AttrT = Chtype
 
@@ -32,6 +38,52 @@ lib LibNCurses
     ITALIC     = 1_u32 << (23_u32 + ATTR_SHIFT)
   end
 
+  NCURSES_BUTTON_RELEASED = 0o01_u32
+  NCURSES_BUTTON_PRESSED  = 0o02_u32
+  NCURSES_BUTTON_CLICKED  = 0o04_u32
+  NCURSES_DOUBLE_CLICKED  = 0o10_u32
+  NCURSES_TRIPLE_CLICKED  = 0o20_u32
+  NCURSES_RESERVED_EVENT  = 0o40_u32
+
+  @[Flags]
+  enum MouseMask : LibC::UInt
+    BUTTON1_RELEASED       = NCURSES_BUTTON_RELEASED << (0_u32 * 5_u32)
+    BUTTON1_PRESSED        = NCURSES_BUTTON_PRESSED << (0_u32 * 5_u32)
+    BUTTON1_CLICKED        = NCURSES_BUTTON_CLICKED << (0_u32 * 5_u32)
+    BUTTON1_DOUBLE_CLICKED = NCURSES_DOUBLE_CLICKED << (0_u32 * 5_u32)
+    BUTTON1_TRIPLE_CLICKED = NCURSES_TRIPLE_CLICKED << (0_u32 * 5_u32)
+
+    BUTTON2_RELEASED       = NCURSES_BUTTON_RELEASED << (1_u32 * 5_u32)
+    BUTTON2_PRESSED        = NCURSES_BUTTON_PRESSED << (1_u32 * 5_u32)
+    BUTTON2_CLICKED        = NCURSES_BUTTON_CLICKED << (1_u32 * 5_u32)
+    BUTTON2_DOUBLE_CLICKED = NCURSES_DOUBLE_CLICKED << (1_u32 * 5_u32)
+    BUTTON2_TRIPLE_CLICKED = NCURSES_TRIPLE_CLICKED << (1_u32 * 5_u32)
+
+    BUTTON3_RELEASED       = NCURSES_BUTTON_RELEASED << (2_u32 * 5_u32)
+    BUTTON3_PRESSED        = NCURSES_BUTTON_PRESSED << (2_u32 * 5_u32)
+    BUTTON3_CLICKED        = NCURSES_BUTTON_CLICKED << (2_u32 * 5_u32)
+    BUTTON3_DOUBLE_CLICKED = NCURSES_DOUBLE_CLICKED << (2_u32 * 5_u32)
+    BUTTON3_TRIPLE_CLICKED = NCURSES_TRIPLE_CLICKED << (2_u32 * 5_u32)
+
+    BUTTON4_RELEASED       = NCURSES_BUTTON_RELEASED << (3_u32 * 5_u32)
+    BUTTON4_PRESSED        = NCURSES_BUTTON_PRESSED << (3_u32 * 5_u32)
+    BUTTON4_CLICKED        = NCURSES_BUTTON_CLICKED << (3_u32 * 5_u32)
+    BUTTON4_DOUBLE_CLICKED = NCURSES_DOUBLE_CLICKED << (3_u32 * 5_u32)
+    BUTTON4_TRIPLE_CLICKED = NCURSES_TRIPLE_CLICKED << (3_u32 * 5_u32)
+
+    BUTTON5_RELEASED       = NCURSES_BUTTON_RELEASED << (4_u32 * 5_u32)
+    BUTTON5_PRESSED        = NCURSES_BUTTON_PRESSED << (4_u32 * 5_u32)
+    BUTTON5_CLICKED        = NCURSES_BUTTON_CLICKED << (4_u32 * 5_u32)
+    BUTTON5_DOUBLE_CLICKED = NCURSES_DOUBLE_CLICKED << (4_u32 * 5_u32)
+    BUTTON5_TRIPLE_CLICKED = NCURSES_TRIPLE_CLICKED << (4_u32 * 5_u32)
+
+    BUTTON_CTRL           = 0o01_u32 << (5_u32 * 5_u32)
+    BUTTON_SHIFT          = 0o02_u32 << (5_u32 * 5_u32)
+    BUTTON_ALT            = 0o04_u32 << (5_u32 * 5_u32)
+    REPORT_MOUSE_POSITION = 0o10_u32 << (5_u32 * 5_u32)
+    ALL_MOUSE_EVENTS      = REPORT_MOUSE_POSITION - 1_u32
+  end
+
   enum Color : Chtype
     BLACK   = 0
     RED     = 1
@@ -49,8 +101,8 @@ lib LibNCurses
   end
 
   enum KeyCode : LibC::Int
-    ESC = 27
-    RETURN = 10
+    ESC       =    27
+    RETURN    =    10
     CODE_YES  = 0o400
     MIN       = 0o401
     BREAK     = 0o401
@@ -234,6 +286,12 @@ lib LibNCurses
   fun wattroff(w : Window, attr : LibC::Int) : Result
   fun wattrset(w : Window, attr : LibC::Int) : Result
   fun use_default_colors : Result
+
+  # Mouse
+  fun has_mouse : Bool
+  fun getmouse(e : MEvent*) : LibC::Int
+  fun mousemask(newmask : MouseMask, oldmask : MouseMask*) : MouseMask
+  fun mouseinterval(interval : LibC::Int) : LibC::Int
 
   # misc
   fun longname : Pointer(LibC::Char)

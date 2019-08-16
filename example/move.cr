@@ -33,4 +33,3 @@ NCurses.open do
     end
   end
 end
-
